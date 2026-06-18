@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { LogoIcon, ChevronDownIcon, MenuIcon, CloseIcon } from './IconComponents';
 
 interface HeaderProps {
-  currentView?: 'home' | 'gallery';
+  currentView?: 'home' | 'gallery' | 'about' | 'pricing' | 'contact';
   onNavigateHomeAndScroll?: (sectionId: string) => void;
 }
 
@@ -33,12 +33,14 @@ const Header: React.FC<HeaderProps> = ({ currentView = 'home', onNavigateHomeAnd
       setIsMenuOpen(false);
     }
 
-    if (link.href.startsWith('#') && link.href !== '#gallery') {
-      const sectionId = link.href.slice(1);
-      if (currentView === 'gallery') {
+    const homeSections = ['services', 'testimonials'];
+    const targetSection = link.href.startsWith('#') ? link.href.slice(1) : '';
+
+    if (homeSections.includes(targetSection)) {
+      if (currentView !== 'home') {
         e.preventDefault();
         if (onNavigateHomeAndScroll) {
-          onNavigateHomeAndScroll(sectionId);
+          onNavigateHomeAndScroll(targetSection);
         } else {
           window.location.hash = link.href;
         }
@@ -49,11 +51,16 @@ const Header: React.FC<HeaderProps> = ({ currentView = 'home', onNavigateHomeAnd
   const NavMenu = ({ isMobile }: { isMobile: boolean }) => (
     <nav className={`${isMobile ? 'flex flex-col space-y-4' : 'hidden md:flex items-center space-x-8'}`}>
       {navLinks.map((link) => {
-        const isCurrentViewGallery = currentView === 'gallery';
-        const isGalleryLink = link.name === 'Gallery';
-        const isHomeLink = link.name === 'Home';
-        const isActive = (isGalleryLink && isCurrentViewGallery) || 
-                         (isHomeLink && !isCurrentViewGallery && (!window.location.hash || window.location.hash === '#' || window.location.hash === '#/'));
+        let isActive = false;
+        if (link.name === 'Home') {
+          isActive = currentView === 'home' && (!window.location.hash || window.location.hash === '#' || window.location.hash === '#/');
+        } else if (link.name === 'About') {
+          isActive = currentView === 'about';
+        } else if (link.name === 'Gallery') {
+          isActive = currentView === 'gallery';
+        } else if (link.name === 'Contact us') {
+          isActive = currentView === 'contact';
+        }
 
         return (
           <a 
@@ -75,7 +82,7 @@ const Header: React.FC<HeaderProps> = ({ currentView = 'home', onNavigateHomeAnd
   );
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled || isMenuOpen || currentView === 'gallery' ? 'bg-black text-white' : 'bg-transparent text-white'}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled || isMenuOpen || currentView !== 'home' ? 'bg-black text-white border-b border-zinc-900' : 'bg-transparent text-white'}`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <a href="#" className="cursor-pointer" aria-label="Alonz Home Page" onClick={() => { if (onNavigateHomeAndScroll) onNavigateHomeAndScroll(''); }}>

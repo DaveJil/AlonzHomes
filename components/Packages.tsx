@@ -92,6 +92,20 @@ const Packages: React.FC = () => {
             </div>
           ))}
         </div>
+
+        {/* View More Details Comparison CTA */}
+        <div className="mt-12 text-center" id="packages-comparison-link">
+          <p className="text-gray-500 text-sm mb-3">Want a full, feature-by-feature comparison of our packages?</p>
+          <a 
+            href="#pricing"
+            className="inline-flex items-center gap-1.5 text-sm sm:text-base font-bold text-gray-900 border-b-2 border-black hover:text-[#E2B344] hover:border-[#E2B344] transition-all pb-0.5 cursor-pointer"
+          >
+            <span>View More Details & Compare All Plans</span>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </a>
+        </div>
       </div>
     </section>
   );

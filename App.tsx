@@ -9,10 +9,13 @@ import Testimonials from './components/Testimonials';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ProjectsPage from './components/ProjectsPage';
+import AboutPage from './components/AboutPage';
+import PricingPage from './components/PricingPage';
+import ContactPage from './components/ContactPage';
 import { WhatsAppIcon } from './components/IconComponents';
 
 const App: React.FC = () => {
-  const [currentView, setCurrentView] = useState<'home' | 'gallery'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'gallery' | 'about' | 'pricing' | 'contact'>('home');
   const [scrollToId, setScrollToId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -20,6 +23,15 @@ const App: React.FC = () => {
       const hash = window.location.hash;
       if (hash === '#gallery' || hash === '#projects-page') {
         setCurrentView('gallery');
+        window.scrollTo(0, 0);
+      } else if (hash === '#about' || hash === '#about-page') {
+        setCurrentView('about');
+        window.scrollTo(0, 0);
+      } else if (hash === '#pricing' || hash === '#pricing-page') {
+        setCurrentView('pricing');
+        window.scrollTo(0, 0);
+      } else if (hash === '#contact' || hash === '#contact-page') {
+        setCurrentView('contact');
         window.scrollTo(0, 0);
       } else {
         setCurrentView('home');
@@ -63,14 +75,7 @@ const App: React.FC = () => {
   };
 
   const handleOpenConsultation = () => {
-    if (currentView === 'gallery') {
-      handleNavigateHomeAndScroll('contact');
-    } else {
-      const contactSection = document.getElementById('contact');
-      if (contactSection) {
-        contactSection.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
+    window.location.hash = '#contact';
   };
 
   return (
@@ -80,7 +85,7 @@ const App: React.FC = () => {
         onNavigateHomeAndScroll={handleNavigateHomeAndScroll} 
       />
       <main>
-        {currentView === 'home' ? (
+        {currentView === 'home' && (
           <>
             <Hero />
             <Services />
@@ -90,9 +95,26 @@ const App: React.FC = () => {
             <Testimonials />
             <Contact />
           </>
-        ) : (
+        )}
+        {currentView === 'gallery' && (
           <ProjectsPage 
             onOpenConsultation={handleOpenConsultation} 
+          />
+        )}
+        {currentView === 'about' && (
+          <AboutPage 
+            onNavigateHome={() => handleNavigateHomeAndScroll('')}
+            onNavigateContact={() => { window.location.hash = '#contact'; }}
+          />
+        )}
+        {currentView === 'pricing' && (
+          <PricingPage 
+            onNavigateContact={() => { window.location.hash = '#contact'; }}
+          />
+        )}
+        {currentView === 'contact' && (
+          <ContactPage 
+            onNavigateHome={() => handleNavigateHomeAndScroll('')}
           />
         )}
       </main>
