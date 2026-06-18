@@ -13,8 +13,8 @@ const PricingPage: React.FC<PricingPageProps> = ({ onNavigateContact }) => {
     {
       name: 'Golden Service',
       description: 'Full-suite property management and hospitality for premium occupied apartments and luxury residences.',
-      price: '$3000',
-      duration: '/ 12 months',
+      price: '£3500',
+      duration: '/ year',
       features: [
         'Professional care and upkeep',
         'Monthly inspections + refresh cleaning',
@@ -30,8 +30,8 @@ const PricingPage: React.FC<PricingPageProps> = ({ onNavigateContact }) => {
     {
       name: 'Silver Service',
       description: 'Essential vacant property supervision and safety compliance for long-term unrented homes and second-home owners.',
-      price: '$2000',
-      duration: '/ 24 months',
+      price: '£2500',
+      duration: '/ year',
       features: [
         'Regular vacant inspections',
         'Maintenance arrangement (call-out fees apply)',

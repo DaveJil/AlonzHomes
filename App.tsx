@@ -120,7 +120,7 @@ const App: React.FC = () => {
       </main>
       <Footer />
       <a
-        href="https://wa.me/447379761333"
+        href="https://wa.me/447471066665"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat with us on WhatsApp"

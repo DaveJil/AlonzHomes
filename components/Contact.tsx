@@ -13,17 +13,28 @@ const Contact: React.FC = () => {
               Every great partnership starts with a conversation. Reach out to discuss your property, and we'll tailor the perfect management plan for you.
             </p>
             <div className="mt-8 space-y-4">
-              <div className="flex items-center gap-4">
-                <PhoneIcon className="h-5 w-5 text-gray-700" />
-                <a href="tel:+447379761333" className="hover:text-[#E2B344] transition-colors">+447379761333</a>
+              <div className="flex items-start gap-4">
+                <PhoneIcon className="h-5 w-5 text-gray-700 mt-1 flex-shrink-0" />
+                <div>
+                  <div className="text-xs uppercase font-mono tracking-wider text-gray-400">WhatsApp & Support</div>
+                  <a href="tel:+447471066665" className="hover:text-[#E2B344] transition-colors font-semibold text-gray-900 text-base">+44(0)747 10 66665</a>
+                </div>
               </div>
-              <div className="flex items-center gap-4">
-                <MailIcon className="h-5 w-5 text-gray-700" />
-                <a href="mailto:info@alonzhomes.com" className="hover:text-[#E2B344] transition-colors">info@alonzhomes.com</a>
+              <div className="flex items-start gap-4">
+                <MailIcon className="h-5 w-5 text-gray-700 mt-1 flex-shrink-0" />
+                <div>
+                  <div className="text-xs uppercase font-mono tracking-wider text-gray-400">Email</div>
+                  <a href="mailto:info@alonzhomes.com" className="hover:text-[#E2B344] transition-colors font-semibold text-gray-900 text-base">info@alonzhomes.com</a>
+                </div>
               </div>
-              <div className="flex items-center gap-4">
-                <LocationIcon className="h-5 w-5 text-gray-700" />
-                <span>Head Office – London</span>
+              <div className="flex items-start gap-4">
+                <LocationIcon className="h-5 w-5 text-gray-700 mt-1 flex-shrink-0" />
+                <div>
+                  <div className="text-xs uppercase font-mono tracking-wider text-gray-400 font-bold">Head Office</div>
+                  <span className="text-gray-700 text-sm leading-relaxed block font-medium max-w-sm mt-0.5">
+                    9 Court parade, East lane, North Wembley, London, HA0 3HU, UK
+                  </span>
+                </div>
               </div>
             </div>
             <a href="#contact" className="mt-10 inline-block bg-[#E2B344] text-black font-semibold px-8 py-3 rounded-full hover:bg-opacity-90 transition-all text-center">

@@ -1,5 +1,5 @@
 import React from 'react';
-import { PhoneIcon, MailIcon } from './IconComponents';
+import { PhoneIcon, MailIcon, WhatsAppIcon } from './IconComponents';
 
 const Hero: React.FC = () => {
   return (
@@ -24,7 +24,7 @@ const Hero: React.FC = () => {
               <a href="#contact" className="bg-[#E2B344] text-black font-semibold px-8 py-3 rounded-full hover:bg-opacity-90 transition-all text-center">
                 Request Consultation
               </a>
-              <a href="tel:+447379761333" className="border border-white text-white font-semibold px-8 py-3 rounded-full hover:bg-white hover:text-black transition-all text-center">
+              <a href="tel:+442035042429" className="border border-white text-white font-semibold px-8 py-3 rounded-full hover:bg-white hover:text-black transition-all text-center">
                 Call Now
               </a>
             </div>
@@ -32,14 +32,27 @@ const Hero: React.FC = () => {
           
           {/* Right Content - Contact Info */}
           <div className="lg:w-auto mt-8 lg:mt-0">
-            <div className="bg-black bg-opacity-30 backdrop-blur-sm p-6 rounded-lg border border-white/20 space-y-4">
+            <div className="bg-black bg-opacity-40 backdrop-blur-md p-6 sm:p-8 rounded-2xl border border-white/15 space-y-5 min-w-[280px]">
               <div className="flex items-center gap-4">
-                <PhoneIcon className="h-6 w-6 text-[#E2B344]" />
-                <a href="tel:+447379761333" className="hover:text-[#E2B344] transition-colors">+447379761333</a>
+                <PhoneIcon className="h-5 w-5 text-[#E2B344] flex-shrink-0" />
+                <div className="flex flex-col text-left">
+                  <span className="text-[10px] uppercase font-mono tracking-wider opacity-60">Office</span>
+                  <a href="tel:+442035042429" className="hover:text-[#E2B344] transition-colors font-semibold text-sm sm:text-base">+44(0)2035042429</a>
+                </div>
               </div>
               <div className="flex items-center gap-4">
-                <MailIcon className="h-6 w-6 text-[#E2B344]" />
-                <a href="mailto:info@alonzhomes.com" className="hover:text-[#E2B344] transition-colors">info@alonzhomes.com</a>
+                <WhatsAppIcon className="h-5 w-5 text-[#E2B344] flex-shrink-0" />
+                <div className="flex flex-col text-left">
+                  <span className="text-[10px] uppercase font-mono tracking-wider opacity-60">WhatsApp</span>
+                  <a href="https://wa.me/447471066665" target="_blank" rel="noopener noreferrer" className="hover:text-[#E2B344] transition-colors font-semibold text-sm sm:text-base">+44(0)7471066665</a>
+                </div>
+              </div>
+              <div className="flex items-center gap-4">
+                <MailIcon className="h-5 w-5 text-[#E2B344] flex-shrink-0" />
+                <div className="flex flex-col text-left">
+                  <span className="text-[10px] uppercase font-mono tracking-wider opacity-60">Email</span>
+                  <a href="mailto:info@alonzhomes.com" className="hover:text-[#E2B344] transition-colors font-semibold text-sm sm:text-base">info@alonzhomes.com</a>
+                </div>
               </div>
             </div>
           </div>

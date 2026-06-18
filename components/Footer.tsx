@@ -1,5 +1,5 @@
 import React from 'react';
-import { LogoIcon, PhoneIcon, MailIcon } from './IconComponents';
+import { LogoIcon, PhoneIcon, MailIcon, WhatsAppIcon } from './IconComponents';
 
 const Footer: React.FC = () => {
   const links = {
@@ -16,7 +16,13 @@ const Footer: React.FC = () => {
             <a href="#" aria-label="Alonz Home Page">
               <LogoIcon className="h-6" />
             </a>
-            <p className="mt-4 text-sm text-gray-400">&copy; {new Date().getFullYear()} Alonz Homes Ltd.</p>
+            <p className="mt-4 text-xs text-gray-400 leading-relaxed font-sans">
+              Head Office:<br />
+              9 Court parade, East lane,<br />
+              North Wembley, London,<br />
+              HA0 3HU, UK
+            </p>
+            <p className="mt-4 text-xs text-gray-500 font-mono">&copy; {new Date().getFullYear()} Alonz Homes Ltd.</p>
           </div>
 
           {/* Service Links */}
@@ -38,15 +44,19 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        <div className="mt-10 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
-          <div className="flex flex-col md:flex-row gap-x-6 gap-y-2">
+        <div className="mt-10 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center text-xs sm:text-sm text-gray-400">
+          <div className="flex flex-col sm:flex-row flex-wrap gap-x-6 gap-y-3">
               <div className="flex items-center gap-2">
-                  <PhoneIcon className="h-4 w-4" />
-                  <a href="tel:+447379761333" className="hover:text-white">+447379761333</a>
+                  <PhoneIcon className="h-4 w-4 text-[#E2B344]" />
+                  <span>Office: <a href="tel:+442035042429" className="hover:text-white transition-colors">+44(0)2035042429</a></span>
               </div>
               <div className="flex items-center gap-2">
-                  <MailIcon className="h-4 w-4" />
-                  <a href="mailto:info@alonzhomes.com" className="hover:text-white">info@alonzhomes.com</a>
+                  <WhatsAppIcon className="h-4 w-4 text-[#E2B344]" />
+                  <span>WhatsApp: <a href="https://wa.me/447471066665" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">+44(0)747 10 66665</a></span>
+              </div>
+              <div className="flex items-center gap-2">
+                  <MailIcon className="h-4 w-4 text-[#E2B344]" />
+                  <a href="mailto:info@alonzhomes.com" className="hover:text-white transition-colors">info@alonzhomes.com</a>
               </div>
           </div>
         </div>

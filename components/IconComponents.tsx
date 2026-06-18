@@ -37,6 +37,7 @@ export const MailIcon: React.FC<IconProps> = ({ className }) => (
     </svg>
 );
 
+{/* FIX: Add missing CodeIcon, RocketIcon, and ShieldIcon components to fix errors in Features.tsx */}
 export const CodeIcon: React.FC<IconProps> = ({ className }) => (
   <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />

@@ -6,8 +6,8 @@ const packages = [
     name: 'Golden Service',
     icon: <CrownIcon className="h-8 w-8 text-black" />,
     description: 'Full property management for premium apartments and homes.',
-    price: '$3000',
-    duration: '/ 12 months',
+    price: '£3500',
+    duration: '/ year',
     features: [
       'Professional care and upkeep',
       'Monthly inspections + refresh cleaning',
@@ -23,8 +23,8 @@ const packages = [
     name: 'Silver Service',
     icon: <SilverServiceIcon className="h-8 w-8 text-gray-800" />,
     description: 'Essential management and maintenance for long-term vacant properties.',
-    price: '$2000',
-    duration: '/ 24 months',
+    price: '£2500',
+    duration: '/ year',
     features: [
       'Regular inspections',
       'Maintenance arrangement (call-out fees apply)',

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Phone, Mail, MessageSquare, Clock, ShieldCheck, Key, RefreshCw, Send, CheckCircle } from 'lucide-react';
+import { Phone, Mail, MessageSquare, Clock, ShieldCheck, Key, RefreshCw, Send, CheckCircle, MapPin } from 'lucide-react';
 
 interface ContactPageProps {
   onNavigateHome: () => void;
@@ -80,11 +80,11 @@ const ContactPage: React.FC<ContactPageProps> = ({ onNavigateHome }) => {
                 <Phone className="h-6 w-6" />
               </div>
               <div>
-                <h4 className="text-xs font-mono uppercase tracking-widest text-gray-400">Direct Office Office</h4>
-                <a href="tel:+447903005315" className="text-lg font-bold text-gray-900 hover:text-[#E2B344] transition-colors mt-1 block">
-                  +44 7903 005315
+                <h4 className="text-xs font-mono uppercase tracking-widest text-gray-400 font-bold">Direct Office</h4>
+                <a href="tel:+442035042429" className="text-lg font-bold text-gray-900 hover:text-[#E2B344] transition-colors mt-1 block">
+                  +44 (0)20 3504 2429
                 </a>
-                <p className="text-gray-500 text-sm mt-1">Mon - Fri, 9am - 6pm GMT</p>
+                <p className="text-gray-500 text-xs mt-1">Mon - Fri, 9am - 6pm GMT</p>
               </div>
             </motion.div>
 
@@ -97,11 +97,11 @@ const ContactPage: React.FC<ContactPageProps> = ({ onNavigateHome }) => {
                 <Mail className="h-6 w-6" />
               </div>
               <div>
-                <h4 className="text-xs font-mono uppercase tracking-widest text-gray-400">Electronic Mail Registry</h4>
+                <h4 className="text-xs font-mono uppercase tracking-widest text-gray-400 font-bold">Email Registry</h4>
                 <a href="mailto:info@alonzhomes.com" className="text-lg font-bold text-gray-900 hover:text-[#E2B344] transition-colors mt-1 block">
                   info@alonzhomes.com
                 </a>
-                <p className="text-gray-500 text-sm mt-1">We typically reply within 2 hours</p>
+                <p className="text-gray-500 text-xs mt-1">We typically reply within 2 hours</p>
               </div>
             </motion.div>
 
@@ -114,12 +114,30 @@ const ContactPage: React.FC<ContactPageProps> = ({ onNavigateHome }) => {
                 <MessageSquare className="h-6 w-6" />
               </div>
               <div>
-                <h4 className="text-xs font-mono uppercase tracking-widest text-gray-400">Instant Live Chat</h4>
-                <a href="https://wa.me/447379761333" target="_blank" rel="noopener noreferrer" className="text-lg font-bold text-green-600 hover:text-green-700 transition-colors mt-1 flex items-center gap-1">
-                  <span>+44 7379 761333</span>
+                <h4 className="text-xs font-mono uppercase tracking-widest text-gray-400 font-bold">WhatsApp Direct</h4>
+                <a href="https://wa.me/447471066665" target="_blank" rel="noopener noreferrer" className="text-lg font-bold text-green-600 hover:text-green-700 transition-colors mt-1 flex items-center gap-1">
+                  <span>+44 (0)747 10 66665</span>
                   <span className="text-xs bg-green-100 text-green-800 px-2.5 py-0.5 rounded-full font-sans uppercase font-extrabold tracking-wide">WhatsApp</span>
                 </a>
-                <p className="text-gray-500 text-sm mt-1">Available for emergency and support</p>
+                <p className="text-gray-500 text-xs mt-1">Available for emergency and support</p>
+              </div>
+            </motion.div>
+
+            {/* Head Office Address Card */}
+            <motion.div 
+              whileHover={{ y: -3 }}
+              className="bg-gray-50 border border-gray-100 rounded-2xl p-6 flex items-start gap-4 shadow-sm transition-shadow"
+            >
+              <div className="p-3 bg-[#E2B344]/15 rounded-xl text-[#B98F32]">
+                <MapPin className="h-6 w-6" />
+              </div>
+              <div>
+                <h4 className="text-xs font-mono uppercase tracking-widest text-gray-400 font-bold">Head Office Address</h4>
+                <div className="text-sm font-bold text-gray-900 mt-1.5 leading-relaxed">
+                  9 Court parade, East lane,<br />
+                  North Wembley, London,<br />
+                  HA0 3HU, UK
+                </div>
               </div>
             </motion.div>
           </div>
