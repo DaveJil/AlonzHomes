@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ArrowRightIcon } from './IconComponents';
+import { Project, projectsData } from '../types';
+import ProjectDetailOverlay from './ProjectDetailOverlay';
 
 const projectImages = [
     { 
@@ -45,6 +47,22 @@ const projectImages = [
 ];
 
 const Projects: React.FC = () => {
+    const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+
+    const handleCardClick = (title: string) => {
+        let matchedId = "chelsea-luxury-apartment";
+        if (title.includes("Holland Park")) matchedId = "holland-park-villa";
+        else if (title.includes("Mayfair")) matchedId = "peninsula-mansion";
+        else if (title.includes("Chelsea")) matchedId = "chelsea-luxury-apartment";
+        else if (title.includes("Wimbledon")) matchedId = "snowfair-avenue";
+        else if (title.includes("Notting Hill")) matchedId = "belgravia-penthouse";
+        
+        const project = projectsData.find(p => p.id === matchedId);
+        if (project) {
+            setSelectedProject(project);
+        }
+    };
+
     return (
         <section id="projects" className="py-20 sm:py-24 bg-[#FDFBF7]">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -54,7 +72,11 @@ const Projects: React.FC = () => {
                 </div>
                 <div className="mt-16 grid grid-cols-12 grid-rows-2 gap-4 h-[500px] md:h-[600px]">
                     {projectImages.map((image, index) => (
-                        <div key={index} className={`relative rounded-lg overflow-hidden group ${image.span}`}>
+                        <div 
+                            key={index} 
+                            onClick={() => handleCardClick(image.title)}
+                            className={`relative rounded-lg overflow-hidden group cursor-pointer ${image.span}`}
+                        >
                             <img src={image.src} alt={image.alt} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
                             {image.overlay && (
                                 <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-end p-6 transition-opacity duration-300 opacity-0 group-hover:opacity-100">
@@ -72,7 +94,32 @@ const Projects: React.FC = () => {
                         </div>
                     ))}
                 </div>
+
+                {/* View All Projects CTA */}
+                <div className="mt-12 text-center">
+                    <a 
+                        href="#gallery" 
+                        className="inline-block border border-gray-900 text-gray-900 font-semibold px-8 py-3 rounded-full hover:bg-gray-800 hover:text-white hover:border-transparent transition-all duration-300 text-center shadow-sm"
+                    >
+                        View All Work Across London
+                    </a>
+                </div>
             </div>
+
+            {selectedProject && (
+                <ProjectDetailOverlay 
+                    project={selectedProject}
+                    onClose={() => setSelectedProject(null)}
+                    onRequestConsultation={() => {
+                        setSelectedProject(null);
+                        // smooth scroll to contact form from the overlay
+                        const contactSection = document.getElementById('contact');
+                        if (contactSection) {
+                            contactSection.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    }}
+                />
+            )}
         </section>
     );
 };

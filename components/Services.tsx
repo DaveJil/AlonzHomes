@@ -14,7 +14,7 @@ const services = [
     title: 'Construction & Renovation',
     description: 'From interior upgrades to full-scale projects, our trusted network delivers results that last.',
     linkText: 'View projects',
-    href: '#projects'
+    href: '#gallery'
   },
   {
     icon: <BellIcon className="h-8 w-8 text-gray-700" />,
