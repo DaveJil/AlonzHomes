@@ -1,5 +1,6 @@
 import React from 'react';
 import { CheckIcon } from './IconComponents';
+import { useActiveImage } from '../imageStore';
 
 const benefits = [
     { text: "One Point of Contact – no more juggling contractors." },
@@ -9,6 +10,8 @@ const benefits = [
 ];
 
 const About: React.FC = () => {
+  const aboutImage = useActiveImage('about_home');
+
   return (
     <section id="about" className="py-20 sm:py-24 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -26,7 +29,7 @@ const About: React.FC = () => {
         <div className="mt-20 sm:mt-24 grid md:grid-cols-2 gap-12 items-center">
           <div className="w-full h-80 md:h-full bg-gray-200 rounded-lg overflow-hidden">
             <img 
-              src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?q=80&w=1974&auto=format&fit=crop" 
+              src={aboutImage} 
               alt="Modern home interior"
               className="w-full h-full object-cover"
             />

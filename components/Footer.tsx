@@ -22,7 +22,11 @@ const Footer: React.FC = () => {
               North Wembley, London,<br />
               HA0 3HU, UK
             </p>
-            <p className="mt-4 text-xs text-gray-500 font-mono">&copy; {new Date().getFullYear()} Alonz Homes Ltd.</p>
+            <div className="mt-4 flex items-center gap-2 flex-wrap">
+              <span className="text-xs text-gray-500 font-mono">&copy; {new Date().getFullYear()} Alonz Homes Ltd.</span>
+              <span className="text-gray-600 font-mono text-xs">|</span>
+              <a href="#admin" className="text-xs text-stone-500 hover:text-[#E2B344] transition-colors font-mono uppercase tracking-widest hover:underline">Staff Admin</a>
+            </div>
           </div>
 
           {/* Service Links */}

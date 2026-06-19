@@ -1,5 +1,6 @@
 import React from 'react';
 import { QuoteIcon } from './IconComponents';
+import { useActiveImage } from '../imageStore';
 
 const testimonials = [
   {
@@ -25,13 +26,16 @@ const testimonials = [
 ];
 
 const Testimonials: React.FC = () => {
+  const bg1 = useActiveImage('testimonial_1_bg');
+  const bg2 = useActiveImage('testimonial_2_bg');
+
   return (
     <section id="testimonials" className="py-20 sm:py-24 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Consultation Banner */}
         <div 
           className="relative rounded-lg overflow-hidden p-10 flex flex-col md:flex-row items-center justify-between bg-cover bg-center" 
-          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1974&auto=format&fit=crop')" }}
+          style={{ backgroundImage: `url('${bg1}')` }}
         >
           <div className="absolute inset-0 bg-black bg-opacity-60"></div>
           <div className="relative z-10 text-center md:text-left">
@@ -49,7 +53,7 @@ const Testimonials: React.FC = () => {
         {/* Testimonial Section */}
         <div 
           className="mt-20 sm:mt-24 relative py-20 rounded-lg overflow-hidden bg-cover bg-center"
-          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?q=80&w=1974&auto=format&fit=crop')" }}
+          style={{ backgroundImage: `url('${bg2}')` }}
         >
           <div className="absolute inset-0 bg-black/70"></div>
           <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 text-center">

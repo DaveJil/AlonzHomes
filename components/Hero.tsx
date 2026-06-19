@@ -1,11 +1,14 @@
 import React from 'react';
 import { PhoneIcon, MailIcon, WhatsAppIcon } from './IconComponents';
+import { useActiveImage } from '../imageStore';
 
 const Hero: React.FC = () => {
+  const heroBg = useActiveImage('hero_background');
+
   return (
     <section 
       className="relative min-h-screen flex items-center justify-center text-white bg-cover bg-center"
-      style={{ backgroundImage: "url('https://images.unsplash.com/photo-1618220179428-22790b461013?q=80&w=2127&auto=format&fit=crop')" }}
+      style={{ backgroundImage: `url('${heroBg}')` }}
     >
       <div className="absolute inset-0 bg-black opacity-50"></div>
       

@@ -12,10 +12,11 @@ import ProjectsPage from './components/ProjectsPage';
 import AboutPage from './components/AboutPage';
 import PricingPage from './components/PricingPage';
 import ContactPage from './components/ContactPage';
+import AdminPage from './components/AdminPage';
 import { WhatsAppIcon } from './components/IconComponents';
 
 const App: React.FC = () => {
-  const [currentView, setCurrentView] = useState<'home' | 'gallery' | 'about' | 'pricing' | 'contact'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'gallery' | 'about' | 'pricing' | 'contact' | 'admin'>('home');
   const [scrollToId, setScrollToId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -32,6 +33,9 @@ const App: React.FC = () => {
         window.scrollTo(0, 0);
       } else if (hash === '#contact' || hash === '#contact-page') {
         setCurrentView('contact');
+        window.scrollTo(0, 0);
+      } else if (hash === '#admin' || hash === '#admin-panel') {
+        setCurrentView('admin');
         window.scrollTo(0, 0);
       } else {
         setCurrentView('home');
@@ -80,10 +84,12 @@ const App: React.FC = () => {
 
   return (
     <div className="bg-white">
-      <Header 
-        currentView={currentView} 
-        onNavigateHomeAndScroll={handleNavigateHomeAndScroll} 
-      />
+      {currentView !== 'admin' && (
+        <Header 
+          currentView={currentView} 
+          onNavigateHomeAndScroll={handleNavigateHomeAndScroll} 
+        />
+      )}
       <main>
         {currentView === 'home' && (
           <>
@@ -117,8 +123,13 @@ const App: React.FC = () => {
             onNavigateHome={() => handleNavigateHomeAndScroll('')}
           />
         )}
+        {currentView === 'admin' && (
+          <AdminPage 
+            onNavigateHome={() => handleNavigateHomeAndScroll('')}
+          />
+        )}
       </main>
-      <Footer />
+      {currentView !== 'admin' && <Footer />}
       <a
         href="https://wa.me/447471066665"
         target="_blank"

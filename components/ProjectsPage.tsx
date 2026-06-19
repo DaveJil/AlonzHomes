@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Project, projectsData } from '../types';
 import ProjectDetailOverlay from './ProjectDetailOverlay';
 import { ArrowRightIcon } from './IconComponents';
+import { useActiveImage } from '../imageStore';
 
 interface ProjectsPageProps {
   onOpenConsultation: () => void;
@@ -9,6 +10,7 @@ interface ProjectsPageProps {
 
 const ProjectsPage: React.FC<ProjectsPageProps> = ({ onOpenConsultation }) => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const heroImage = useActiveImage('projects_page_hero');
 
   return (
     <div className="bg-white min-h-screen pt-20" id="projects-page-wrapper">
@@ -21,7 +23,7 @@ const ProjectsPage: React.FC<ProjectsPageProps> = ({ onOpenConsultation }) => {
         {/* Background Image Overlay with brick-wall Chesterfield couch setting */}
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=2070&auto=format&fit=crop" 
+            src={heroImage} 
             alt="Warm atmospheric boutique room with leather chesterfield sofa"
             className="w-full h-full object-cover opacity-60 scale-102"
             referrerPolicy="no-referrer"

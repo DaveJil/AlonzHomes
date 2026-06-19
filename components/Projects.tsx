@@ -2,52 +2,59 @@ import React, { useState } from 'react';
 import { ArrowRightIcon } from './IconComponents';
 import { Project, projectsData } from '../types';
 import ProjectDetailOverlay from './ProjectDetailOverlay';
-
-const projectImages = [
-    { 
-        src: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2070&auto=format&fit=crop', 
-        alt: 'Spacious dining room with large windows', 
-        span: 'col-span-12 md:col-span-4 row-span-1',
-        overlay: true,
-        title: 'The Holland Park Villa',
-        location: 'Holland Park, W11'
-    },
-    { 
-        src: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=2071&auto=format&fit=crop', 
-        alt: 'Modern building exterior with a pool at dusk', 
-        span: 'col-span-12 md:col-span-5 row-span-2',
-        overlay: true,
-        title: 'Mayfair Sky Residence',
-        location: 'Mayfair, W1K'
-    },
-    { 
-        src: 'https://images.unsplash.com/photo-1494203484021-3c454daf695d?q=80&w=2070&auto=format&fit=crop', 
-        alt: 'Snowy street with townhouses', 
-        span: 'col-span-12 md:col-span-3 row-span-1', 
-        overlay: true, 
-        title: 'Chelsea Riverside Flat', 
-        location: 'Chelsea, SW3' 
-    },
-    { 
-        src: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2070&auto=format&fit=crop', 
-        alt: 'Luxury bathroom with double vanity and warm lighting', 
-        span: 'col-span-12 md:col-span-4 row-span-1',
-        overlay: true,
-        title: 'Notting Hill Mews',
-        location: 'Notting Hill, W11'
-    },
-    { 
-        src: 'https://images.unsplash.com/photo-1617806118233-18e1de247200?q=80&w=2108&auto=format&fit=crop', 
-        alt: 'Modern kitchen with marble island', 
-        span: 'col-span-12 md:col-span-3 row-span-1',
-        overlay: true,
-        title: 'Modern Wimbledon Home',
-        location: 'Wimbledon, SW19'
-    },
-];
+import { useActiveImage } from '../imageStore';
 
 const Projects: React.FC = () => {
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+
+    const project1Img = useActiveImage('project_1');
+    const project2Img = useActiveImage('project_2');
+    const project3Img = useActiveImage('project_3');
+    const project4Img = useActiveImage('project_4');
+    const project5Img = useActiveImage('project_5');
+
+    const projectImages = [
+        { 
+            src: project1Img, 
+            alt: 'Spacious dining room with large windows', 
+            span: 'col-span-12 md:col-span-4 row-span-1',
+            overlay: true,
+            title: 'The Holland Park Villa',
+            location: 'Holland Park, W11'
+        },
+        { 
+            src: project2Img, 
+            alt: 'Modern building exterior with a pool at dusk', 
+            span: 'col-span-12 md:col-span-5 row-span-2',
+            overlay: true,
+            title: 'Mayfair Sky Residence',
+            location: 'Mayfair, W1K'
+        },
+        { 
+            src: project3Img, 
+            alt: 'Snowy street with townhouses', 
+            span: 'col-span-12 md:col-span-3 row-span-1', 
+            overlay: true, 
+            title: 'Chelsea Riverside Flat', 
+            location: 'Chelsea, SW3' 
+        },
+        { 
+            src: project4Img, 
+            alt: 'Luxury bathroom with double vanity and warm lighting', 
+            span: 'col-span-12 md:col-span-4 row-span-1',
+            overlay: true,
+            title: 'Notting Hill Mews',
+            location: 'Notting Hill, W11'
+        },
+        { 
+            src: project5Img, 
+            alt: 'Modern kitchen with marble island', 
+            span: 'col-span-12 md:col-span-3 row-span-1',
+            overlay: true,
+            title: 'Modern Wimbledon Home',
+            location: 'Wimbledon, SW19'
+        },
+    ];
 
     const handleCardClick = (title: string) => {
         let matchedId = "chelsea-luxury-apartment";

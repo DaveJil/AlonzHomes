@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { PenTool, Compass, Shield, Users, ArrowRight, Eye, Sparkles, ChevronRight, MapPin, Award, HeartHandshake } from 'lucide-react';
+import bilalHeadshot from '../src/assets/images/bilal_jammal_headshot_1781857868698.jpg';
+import { useActiveImage } from '../imageStore';
 
 interface AboutPageProps {
   onNavigateHome: () => void;
@@ -9,6 +11,12 @@ interface AboutPageProps {
 
 const AboutPage: React.FC<AboutPageProps> = ({ onNavigateHome, onNavigateContact }) => {
   const [activeValue, setActiveValue] = useState<number>(0);
+
+  const storyImage = useActiveImage('about_page_story');
+  const philosophyImage = useActiveImage('about_page_philosophy');
+  const standardsImage = useActiveImage('about_page_standards');
+  const materialsImage = useActiveImage('about_page_materials');
+  const activeBilalHeadshot = useActiveImage('bilal_headshot', bilalHeadshot);
 
   const valuesAndPrinciples = [
     {
@@ -89,7 +97,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ onNavigateHome, onNavigateContact
             className="lg:col-span-5 h-[450px] relative rounded-3xl overflow-hidden shadow-xl"
           >
             <img 
-              src="https://images.unsplash.com/photo-1540518614846-7eded433c457?q=80&w=2070&auto=format&fit=crop" 
+              src={storyImage} 
               alt="Vintage heavy brass key on stylish office setting"
               className="w-full h-full object-cover"
               referrerPolicy="no-referrer"
@@ -111,7 +119,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ onNavigateHome, onNavigateContact
             {/* Story Image */}
             <div className="lg:col-span-5 h-[400px] md:h-[480px] relative rounded-3xl overflow-hidden shadow-lg order-2 lg:order-1">
               <img 
-                src="https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=2069&auto=format&fit=crop" 
+                src={philosophyImage} 
                 alt="Hand with martini and elegant interior styling detail"
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
@@ -207,7 +215,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ onNavigateHome, onNavigateContact
             {/* Scenery image */}
             <div className="lg:col-span-5 h-[450px] relative rounded-3xl overflow-hidden shadow-lg">
               <img 
-                src="https://images.unsplash.com/photo-1543007630-9710e4a00a20?q=80&w=2070&auto=format&fit=crop" 
+                src={standardsImage} 
                 alt="Cozy elegant dimly lit dinner banquet table outdoors under high arch tree row"
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
@@ -264,21 +272,21 @@ const AboutPage: React.FC<AboutPageProps> = ({ onNavigateHome, onNavigateContact
         </div>
       </section>
 
-      {/* 5. MEET THE FOUNDERS */}
+      {/* 5. MEET THE FOUNDER */}
       <section className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl mb-24">
         <div className="text-center max-w-2xl mx-auto mb-16">
           <span className="text-[#E2B344] text-xs font-bold uppercase tracking-widest font-mono">The Leadership</span>
           <h2 className="text-3xl md:text-4xl font-extrabold text-[#111111] tracking-tight mt-3 font-sans">
-            Meet The Founders
+            Meet The Founder
           </h2>
           <p className="mt-4 text-gray-500 text-sm sm:text-base">
             Driven by reliability, transparency, and a passion for London's finest properties.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 gap-8 max-w-2xl mx-auto">
           
-          {/* Founder 1 */}
+          {/* Founder 1 (Commented out for now)
           <motion.div 
             whileHover={{ y: -4 }}
             className="bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm flex flex-col md:flex-row items-center gap-6 p-6"
@@ -299,6 +307,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ onNavigateHome, onNavigateContact
               </p>
             </div>
           </motion.div>
+          */}
 
           {/* Founder 2 */}
           <motion.div 
@@ -307,9 +316,9 @@ const AboutPage: React.FC<AboutPageProps> = ({ onNavigateHome, onNavigateContact
           >
             <div className="w-32 h-32 md:w-36 md:h-36 rounded-2xl bg-zinc-100 overflow-hidden flex-shrink-0">
               <img 
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=600&auto=format&fit=crop" 
+                src={activeBilalHeadshot} 
                 alt="Bilal Jammal face headshot portrait"
-                className="w-full h-full object-cover grayscale brightness-95"
+                className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
               />
             </div>
@@ -346,7 +355,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ onNavigateHome, onNavigateContact
           {/* Left image of gorgeous lounge */}
           <div className="lg:col-span-5 h-[380px] sm:h-[450px] relative rounded-3xl overflow-hidden shadow-xl">
             <img 
-              src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2058&auto=format&fit=crop" 
+              src={materialsImage} 
               alt="Stylish mid-century lounge office interior"
               className="w-full h-full object-cover"
               referrerPolicy="no-referrer"

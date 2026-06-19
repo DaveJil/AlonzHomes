@@ -137,7 +137,7 @@ const PricingPage: React.FC<PricingPageProps> = ({ onNavigateContact }) => {
     },
     {
       q: 'How do we get started?',
-      a: 'Simply choose a tier and request a consultation. Our founder Bilal or co-founder Christopher will schedule an in-person viewing of your residence, audit current systems, complete keys handover, and set up your ledger and float deposit.'
+      a: 'Simply choose a tier and request a consultation. Our founder Bilal will schedule an in-person viewing of your residence, audit current systems, complete keys handover, and set up your ledger and float deposit.'
     }
   ];
 
