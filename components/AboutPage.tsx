@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { PenTool, Compass, Shield, Users, ArrowRight, Eye, Sparkles, ChevronRight, MapPin, Award, HeartHandshake } from 'lucide-react';
 import bilalHeadshot from '../src/assets/images/bilal_jammal_headshot_1781857868698.jpg';
 import { useActiveImage } from '../imageStore';
+import { useActiveText } from '../textStore';
 
 interface AboutPageProps {
   onNavigateHome: () => void;
@@ -17,6 +18,11 @@ const AboutPage: React.FC<AboutPageProps> = ({ onNavigateHome, onNavigateContact
   const standardsImage = useActiveImage('about_page_standards');
   const materialsImage = useActiveImage('about_page_materials');
   const activeBilalHeadshot = useActiveImage('bilal_headshot', bilalHeadshot);
+
+  const storyHeading = useActiveText('about_page_story_title');
+  const storyP1 = useActiveText('about_page_story_p1');
+  const storyP2 = useActiveText('about_page_story_p2');
+  const founderBio = useActiveText('about_page_founder_summary');
 
   const valuesAndPrinciples = [
     {
@@ -129,22 +135,15 @@ const AboutPage: React.FC<AboutPageProps> = ({ onNavigateHome, onNavigateContact
 
             {/* Story Text */}
             <div className="lg:col-span-7 space-y-6 order-1 lg:order-2">
-              <span className="text-[#E2B344] font-bold text-xs uppercase tracking-widest block font-mono">Our History</span>
+              <span className="text-[#E2B344] font-bold text-xs uppercase tracking-widest block font-mono font-bold">Our History</span>
               <h2 className="text-3xl md:text-4.5xl font-extrabold text-gray-900 tracking-tight leading-tight">
-                Our Story
+                {storyHeading}
               </h2>
               <div className="w-12 h-1 bg-[#E2B344] rounded-full" />
               
-              <div className="text-gray-600 text-base space-y-4 leading-relaxed font-normal">
-                <p>
-                  Alonz Homes was founded with a simple, singular purpose — to provide London homeowners with a seamless, trustworthy, and complete home management experience.
-                </p>
-                <p>
-                  What started as a small concierge-style service has evolved into a comprehensive, high-fidelity solution for international owners, busy professionals, and elite clients who expect top-tier care for their properties.
-                </p>
-                <p>
-                  From vacant property supervision to luxury renovations, deep cleaning, private chauffeuring, and interior design assistance, we deliver an elevated standard of service built on <strong className="text-gray-900 font-bold">trust, transparency, and personal attention</strong>. We ensure your assets remain pristine and fully operational, ready for your arrival at any moment.
-                </p>
+              <div className="text-gray-600 text-base space-y-4 leading-relaxed font-normal whitespace-pre-line">
+                <p>{storyP1}</p>
+                <p>{storyP2}</p>
               </div>
             </div>
           </div>
@@ -324,9 +323,9 @@ const AboutPage: React.FC<AboutPageProps> = ({ onNavigateHome, onNavigateContact
             </div>
             <div>
               <h4 className="text-xl font-bold text-gray-900 font-sans">Bilal Jammal</h4>
-              <p className="text-xs font-mono uppercase tracking-widest text-[#B98F32] mt-1 font-bold">Founder & Director</p>
-              <p className="text-gray-500 text-xs sm:text-sm mt-3 leading-relaxed">
-                As Founder and Director, Bilal sets the operational standard for client reception and builder projects. His vision guides all long-term property supervision and concierge divisions for overseas customers.
+              <p className="text-xs font-mono uppercase tracking-widest text-[#B98F32] mt-1 font-bold font-bold">Founder & Director</p>
+              <p className="text-gray-500 text-xs sm:text-sm mt-3 leading-relaxed whitespace-pre-line">
+                {founderBio}
               </p>
             </div>
           </motion.div>

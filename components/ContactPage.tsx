@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Phone, Mail, MessageSquare, Clock, ShieldCheck, Key, RefreshCw, Send, CheckCircle, MapPin } from 'lucide-react';
+import { useActiveText } from '../textStore';
 
 interface ContactPageProps {
   onNavigateHome: () => void;
@@ -9,6 +10,11 @@ interface ContactPageProps {
 const ContactPage: React.FC<ContactPageProps> = ({ onNavigateHome }) => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+
+  const heading = useActiveText('contact_heading');
+  const sub = useActiveText('contact_sub');
+  const addressVal = useActiveText('contact_address');
+  const officePhone = useActiveText('hero_office_phone');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,15 +55,15 @@ const ContactPage: React.FC<ContactPageProps> = ({ onNavigateHome }) => {
           transition={{ delay: 0.1 }}
           className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-[#111111] tracking-tight font-sans max-w-4xl mx-auto leading-tight"
         >
-          Let's Begin the Conversation
+          {heading}
         </motion.h1>
         <motion.p 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="mt-6 text-gray-600 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed"
+          className="mt-6 text-gray-650 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed whitespace-pre-line"
         >
-          We're here to help with property management, renovations, cleaning, and every service your home needs. Contact us anytime — we respond quickly.
+          {sub}
         </motion.p>
       </section>
 
@@ -133,10 +139,8 @@ const ContactPage: React.FC<ContactPageProps> = ({ onNavigateHome }) => {
               </div>
               <div>
                 <h4 className="text-xs font-mono uppercase tracking-widest text-gray-400 font-bold">Head Office Address</h4>
-                <div className="text-sm font-bold text-gray-900 mt-1.5 leading-relaxed">
-                  9 Court parade, East lane,<br />
-                  North Wembley, London,<br />
-                  HA0 3HU, UK
+                <div className="text-sm font-bold text-gray-900 mt-1.5 leading-relaxed whitespace-pre-line">
+                  {addressVal}
                 </div>
               </div>
             </motion.div>

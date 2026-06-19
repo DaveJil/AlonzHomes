@@ -3,9 +3,12 @@ import { ArrowRightIcon } from './IconComponents';
 import { Project, projectsData } from '../types';
 import ProjectDetailOverlay from './ProjectDetailOverlay';
 import { useActiveImage } from '../imageStore';
+import { useActiveText } from '../textStore';
 
 const Projects: React.FC = () => {
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+    const heading = useActiveText('portfolio_heading');
+    const sub = useActiveText('portfolio_sub');
 
     const project1Img = useActiveImage('project_1');
     const project2Img = useActiveImage('project_2');
@@ -74,8 +77,8 @@ const Projects: React.FC = () => {
         <section id="projects" className="py-20 sm:py-24 bg-[#FDFBF7]">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center max-w-2xl mx-auto">
-                    <h2 className="text-3xl md:text-4xl font-bold text-gray-900">Recent Projects</h2>
-                    <p className="mt-4 text-gray-600">A glimpse into the homes and spaces we've recently transformed and managed across London.</p>
+                    <h2 className="text-3xl md:text-4xl font-bold text-gray-900">{heading}</h2>
+                    <p className="mt-4 text-gray-600 whitespace-pre-line">{sub}</p>
                 </div>
                 <div className="mt-16 grid grid-cols-12 grid-rows-2 gap-4 h-[500px] md:h-[600px]">
                     {projectImages.map((image, index) => (

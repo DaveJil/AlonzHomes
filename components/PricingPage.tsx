@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Check, Info, Shield, HelpCircle, ChevronRight, HelpCircle as HelpIcon, ArrowRight, Table } from 'lucide-react';
+import { useActiveText } from '../textStore';
 
 interface PricingPageProps {
   onNavigateContact: () => void;
@@ -8,6 +9,8 @@ interface PricingPageProps {
 
 const PricingPage: React.FC<PricingPageProps> = ({ onNavigateContact }) => {
   const [activeFaq, setActiveFaq] = useState<number>(-1);
+  const headline = useActiveText('pricing_heading');
+  const subtitle = useActiveText('pricing_sub');
 
   const packages = [
     {
@@ -159,15 +162,15 @@ const PricingPage: React.FC<PricingPageProps> = ({ onNavigateContact }) => {
           transition={{ delay: 0.1 }}
           className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-[#111111] tracking-tight font-sans max-w-4xl mx-auto leading-tight"
         >
-          Simple, Transparent Pricing
+          {headline}
         </motion.h1>
         <motion.p 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="mt-6 text-gray-600 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed"
+          className="mt-6 text-gray-650 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed whitespace-pre-line"
         >
-          Choose the perfect plan for your home — or customise one to match your lifestyle.
+          {subtitle}
         </motion.p>
       </section>
 
