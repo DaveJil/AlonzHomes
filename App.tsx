@@ -14,10 +14,13 @@ import PricingPage from './components/PricingPage';
 import ContactPage from './components/ContactPage';
 import AdminPage from './components/AdminPage';
 import { WhatsAppIcon } from './components/IconComponents';
+import { useActiveText } from './textStore';
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<'home' | 'gallery' | 'about' | 'pricing' | 'contact' | 'admin'>('home');
   const [scrollToId, setScrollToId] = useState<string | null>(null);
+  const whatsappNum = useActiveText('hero_whatsapp_num');
+  const cleanWhatsApp = whatsappNum.replace(/[^\d+]/g, '');
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -131,7 +134,7 @@ const App: React.FC = () => {
       </main>
       {currentView !== 'admin' && <Footer />}
       <a
-        href="https://wa.me/447471066665"
+        href={`https://wa.me/${cleanWhatsApp.replace('+', '')}`}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat with us on WhatsApp"

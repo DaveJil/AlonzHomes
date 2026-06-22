@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { getServerContentValue, loadServerContent, saveServerContent, subscribeServerContent } from './serverContentStore';
 
 export interface EditableText {
   key: string;
@@ -219,6 +220,11 @@ const LOCAL_STORAGE_PREFIX = 'alonz_homes_override_text_';
 const LISTENERS = new Set<() => void>();
 
 export function getText(key: string, defaultFallback: string): string {
+  const serverOverride = getServerContentValue('texts', key);
+  if (serverOverride) {
+    return serverOverride;
+  }
+
   try {
     const override = localStorage.getItem(`${LOCAL_STORAGE_PREFIX}${key}`);
     if (override && override.trim() !== '') {
@@ -237,6 +243,11 @@ export function setText(key: string, text: string): void {
   } catch (e) {
     console.error('Failed to write text to localStorage', e);
   }
+}
+
+export async function publishText(key: string, text: string, passcode: string): Promise<boolean> {
+  setText(key, text);
+  return saveServerContent('texts', key, text, passcode);
 }
 
 export function resetText(key: string): void {
@@ -268,8 +279,12 @@ export function useActiveText(key: string, defaultTextFallback?: string): string
     };
 
     LISTENERS.add(handleUpdate);
+    const unsubscribeServerContent = subscribeServerContent(handleUpdate);
+    loadServerContent();
+
     return () => {
       LISTENERS.delete(handleUpdate);
+      unsubscribeServerContent();
     };
   }, [key, fallback]);
 
