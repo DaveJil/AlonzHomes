@@ -212,6 +212,67 @@ export const INITIAL_TEXTS: EditableText[] = [
     label: 'Physical Address Details',
     description: 'Displayed of the Alonz Homes London workspace coordinates.',
     defaultText: 'Office Suite, Second Floor, 14 Great Central Street, London, NW1 5FP'
+  },
+  // CHAUFFEURING PAGE
+  {
+    key: 'chauffeuring_heading',
+    category: 'portfolio',
+    label: 'Chauffeuring - Heading Title',
+    description: 'Main display title of the Chauffeuring & Private Tours page.',
+    defaultText: 'Chauffeuring & Private Tours'
+  },
+  {
+    key: 'chauffeuring_sub',
+    category: 'portfolio',
+    label: 'Chauffeuring - Subtitle Narrative',
+    description: 'The elegant introductory description text on the Chauffeuring page.',
+    defaultText: 'Luxury transport and personalised London tours – travel comfortably, arrive on time, and explore the city with ease.',
+    isTextArea: true
+  },
+  {
+    key: 'chauffeuring_hourly_rate',
+    category: 'pricing',
+    label: 'Chauffeuring - Base Hourly Rate (£)',
+    description: 'Base cost per hour (used to dynamically compute prices for hourly bookings).',
+    defaultText: '85.00'
+  },
+  {
+    key: 'chauffeuring_distance_rate',
+    category: 'pricing',
+    label: 'Chauffeuring - Base Distance Rate (£/mile)',
+    description: 'Cost per mile for trip-based distance pricing calculations.',
+    defaultText: '4.50'
+  },
+  {
+    key: 'chauffeuring_base_fee',
+    category: 'pricing',
+    label: 'Chauffeuring - Base Trip Fee (£)',
+    description: 'Fixed minimal flag drop or start fee for any single trip booking.',
+    defaultText: '95.00'
+  },
+  {
+    key: 'chauffeuring_fleet_business_desc',
+    category: 'portfolio',
+    label: 'Chauffeuring - Business Class Description',
+    description: 'Detailed card description text for the Business Class sedan category.',
+    defaultText: 'Travel in comfort and style with premium vehicles, professional service, and a seamless experience tailored for business needs.',
+    isTextArea: true
+  },
+  {
+    key: 'chauffeuring_fleet_first_desc',
+    category: 'portfolio',
+    label: 'Chauffeuring - First Class Description',
+    description: 'Detailed card description text for the First Class sedan category (VIP prestige).',
+    defaultText: 'Ultimate flagship luxury experience for VIPs. Exemplary ride comfort, prestige presence, and first-class amenities.',
+    isTextArea: true
+  },
+  {
+    key: 'chauffeuring_fleet_van_desc',
+    category: 'portfolio',
+    label: 'Chauffeuring - Luxury MPV Description',
+    description: 'Detailed card description text for the Luxury MPV (Mercedes V-Class) category.',
+    defaultText: 'Spacious high-end multi-passenger vehicle. Ideal for groups, roadshows, weddings, or travelers with extensive baggage requirements.',
+    isTextArea: true
   }
 ];
 

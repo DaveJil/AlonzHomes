@@ -113,6 +113,48 @@ export const INITIAL_IMAGES: EditableImage[] = [
     description: 'Override portrait URL of Bilal Jammal. Leave empty to use the pristine generated headshot portrait asset.',
     defaultUrl: '',
     recommendedSize: '600x600 px (Square Aspect Ratio 1:1)'
+  },
+  {
+    key: 'chauffeuring_hero',
+    label: 'Chauffeuring - Hero Banner',
+    description: 'The background picture of luxury sedans in the Chauffeuring service page header.',
+    defaultUrl: 'https://static.codia.ai/image/2026-06-24/aExYq7MZ8e.png',
+    recommendedSize: '1920x800 px (High Resolution Landscape)'
+  },
+  {
+    key: 'chauffeuring_fleet_business',
+    label: 'Chauffeuring - Business Class Sedan',
+    description: 'Side-profile picture of a black executive sedan (e.g. Mercedes E-Class) for the fleet slider.',
+    defaultUrl: 'https://static.codia.ai/image/2026-06-24/xtrSN9hpeK.png',
+    recommendedSize: '800x450 px (Clean car side profile, transparent or neutral background)'
+  },
+  {
+    key: 'chauffeuring_fleet_first',
+    label: 'Chauffeuring - First Class Sedan',
+    description: 'Primacy portrait of a luxury flagship sedan (e.g. Mercedes S-Class) for the fleet slider.',
+    defaultUrl: 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=1000&auto=format&fit=crop',
+    recommendedSize: '800x450 px'
+  },
+  {
+    key: 'chauffeuring_fleet_van',
+    label: 'Chauffeuring - Luxury MPV/Van',
+    description: 'Side profile of a luxury group passenger van (e.g. Mercedes V-Class) for the fleet slider.',
+    defaultUrl: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=1000&auto=format&fit=crop',
+    recommendedSize: '800x450 px'
+  },
+  {
+    key: 'chauffeuring_interior',
+    label: 'Chauffeuring - Vehicle Interior',
+    description: 'Luxury white/beige leather interior photo showing ultimate comfort and class.',
+    defaultUrl: 'https://static.codia.ai/image/2026-06-24/wS5vk33qVm.png',
+    recommendedSize: '1000x650 px (Interior detail)'
+  },
+  {
+    key: 'chauffeuring_cta_bg',
+    label: 'Chauffeuring - Bottom CTA Banner BG',
+    description: 'The background picture of the bottom banner CTA block.',
+    defaultUrl: 'https://static.codia.ai/image/2026-06-24/xOtDdyUChR.png',
+    recommendedSize: '1920x600 px'
   }
 ];
 

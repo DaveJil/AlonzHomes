@@ -13,10 +13,15 @@ import AboutPage from './components/AboutPage';
 import PricingPage from './components/PricingPage';
 import ContactPage from './components/ContactPage';
 import AdminPage from './components/AdminPage';
+import ChauffeuringPage from './components/ChauffeuringPage';
+import ServiceDetailPage from './components/ServiceDetailPage';
 import { WhatsAppIcon } from './components/IconComponents';
 
 const App: React.FC = () => {
-  const [currentView, setCurrentView] = useState<'home' | 'gallery' | 'about' | 'pricing' | 'contact' | 'admin'>('home');
+  const [currentView, setCurrentView] = useState<
+    'home' | 'gallery' | 'about' | 'pricing' | 'contact' | 'admin' |
+    'chauffeuring' | 'interiordesign' | 'propertymanagement' | 'cleaning' | 'construction'
+  >('home');
   const [scrollToId, setScrollToId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -36,6 +41,21 @@ const App: React.FC = () => {
         window.scrollTo(0, 0);
       } else if (hash === '#admin' || hash === '#admin-panel') {
         setCurrentView('admin');
+        window.scrollTo(0, 0);
+      } else if (hash === '#services/chauffeuring') {
+        setCurrentView('chauffeuring');
+        window.scrollTo(0, 0);
+      } else if (hash === '#services/interior-design') {
+        setCurrentView('interiordesign');
+        window.scrollTo(0, 0);
+      } else if (hash === '#services/property-management') {
+        setCurrentView('propertymanagement');
+        window.scrollTo(0, 0);
+      } else if (hash === '#services/cleaning-services') {
+        setCurrentView('cleaning');
+        window.scrollTo(0, 0);
+      } else if (hash === '#services/construction') {
+        setCurrentView('construction');
         window.scrollTo(0, 0);
       } else {
         setCurrentView('home');
@@ -125,6 +145,40 @@ const App: React.FC = () => {
         )}
         {currentView === 'admin' && (
           <AdminPage 
+            onNavigateHome={() => handleNavigateHomeAndScroll('')}
+          />
+        )}
+        {currentView === 'chauffeuring' && (
+          <ChauffeuringPage 
+            onNavigateContact={() => { window.location.hash = '#contact'; }}
+            onNavigateHome={() => handleNavigateHomeAndScroll('')}
+          />
+        )}
+        {currentView === 'interiordesign' && (
+          <ServiceDetailPage 
+            serviceType="interiordesign"
+            onNavigateContact={() => { window.location.hash = '#contact'; }}
+            onNavigateHome={() => handleNavigateHomeAndScroll('')}
+          />
+        )}
+        {currentView === 'propertymanagement' && (
+          <ServiceDetailPage 
+            serviceType="propertymanagement"
+            onNavigateContact={() => { window.location.hash = '#contact'; }}
+            onNavigateHome={() => handleNavigateHomeAndScroll('')}
+          />
+        )}
+        {currentView === 'cleaning' && (
+          <ServiceDetailPage 
+            serviceType="cleaning"
+            onNavigateContact={() => { window.location.hash = '#contact'; }}
+            onNavigateHome={() => handleNavigateHomeAndScroll('')}
+          />
+        )}
+        {currentView === 'construction' && (
+          <ServiceDetailPage 
+            serviceType="construction"
+            onNavigateContact={() => { window.location.hash = '#contact'; }}
             onNavigateHome={() => handleNavigateHomeAndScroll('')}
           />
         )}
