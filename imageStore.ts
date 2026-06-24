@@ -161,7 +161,31 @@ export const INITIAL_IMAGES: EditableImage[] = [
 const LOCAL_STORAGE_PREFIX = 'alonz_homes_override_img_';
 const LISTENERS = new Set<() => void>();
 
+let GLOBAL_IMAGE_OVERRIDES: { [key: string]: string } = {};
+
+export function fetchImageOverrides() {
+  fetch('/api/overrides')
+    .then(res => res.json())
+    .then(data => {
+      if (data && data.images) {
+        GLOBAL_IMAGE_OVERRIDES = data.images;
+        notifyListeners();
+      }
+    })
+    .catch(err => {
+      console.warn('Failed to fetch image overrides on load:', err);
+    });
+}
+
+// Trigger initial load
+if (typeof window !== 'undefined') {
+  fetchImageOverrides();
+}
+
 export function getImageUrl(key: string, defaultFallback: string): string {
+  if (GLOBAL_IMAGE_OVERRIDES[key] !== undefined && GLOBAL_IMAGE_OVERRIDES[key].trim() !== '') {
+    return GLOBAL_IMAGE_OVERRIDES[key].trim();
+  }
   try {
     const override = localStorage.getItem(`${LOCAL_STORAGE_PREFIX}${key}`);
     if (override && override.trim() !== '') {
@@ -174,21 +198,40 @@ export function getImageUrl(key: string, defaultFallback: string): string {
 }
 
 export function setImageUrl(key: string, url: string): void {
+  const trimmed = url.trim();
+  GLOBAL_IMAGE_OVERRIDES[key] = trimmed;
   try {
-    localStorage.setItem(`${LOCAL_STORAGE_PREFIX}${key}`, url.trim());
-    notifyListeners();
+    localStorage.setItem(`${LOCAL_STORAGE_PREFIX}${key}`, trimmed);
   } catch (e) {
     console.error('Failed to write to localStorage', e);
   }
+  notifyListeners();
+
+  fetch('/api/overrides/image', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ key, value: trimmed })
+  }).catch(err => {
+    console.error('Failed to persist image override to server:', err);
+  });
 }
 
 export function resetImageUrl(key: string): void {
+  delete GLOBAL_IMAGE_OVERRIDES[key];
   try {
     localStorage.removeItem(`${LOCAL_STORAGE_PREFIX}${key}`);
-    notifyListeners();
   } catch (e) {
     console.error('Failed to remove from localStorage', e);
   }
+  notifyListeners();
+
+  fetch('/api/overrides/reset-image', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ key })
+  }).catch(err => {
+    console.error('Failed to reset image override on server:', err);
+  });
 }
 
 function notifyListeners() {

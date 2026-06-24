@@ -39,7 +39,7 @@ const AdminPage: React.FC<AdminPageProps> = ({ onNavigateHome }) => {
   // Dynamic search and filter
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedImageFilter, setSelectedImageFilter] = useState<'all' | 'home' | 'portfolio' | 'about' | 'special'>('all');
-  const [selectedTextFilter, setSelectedTextFilter] = useState<'all' | 'hero' | 'about' | 'portfolio' | 'pricing' | 'contact'>('all');
+  const [selectedTextFilter, setSelectedTextFilter] = useState<'all' | 'hero' | 'about' | 'portfolio' | 'pricing' | 'contact' | 'chauffeuring'>('all');
 
   // Input states for images
   const [imageInputs, setImageInputs] = useState<{ [key: string]: string }>(() => {
@@ -427,6 +427,14 @@ const AdminPage: React.FC<AdminPageProps> = ({ onNavigateHome }) => {
                   }`}
                 >
                   Contact Form ({INITIAL_TEXTS.filter(t => t.category === 'contact').length})
+                </button>
+                <button
+                  onClick={() => setSelectedTextFilter('chauffeuring')}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition cursor-pointer ${
+                    selectedTextFilter === 'chauffeuring' ? 'bg-white text-stone-900 shadow-xs' : 'text-stone-600 hover:text-stone-900'
+                  }`}
+                >
+                  Chauffeuring & Fleet ({INITIAL_TEXTS.filter(t => t.category === 'chauffeuring').length})
                 </button>
               </div>
             )}

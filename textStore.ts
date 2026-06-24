@@ -5,7 +5,7 @@ export interface EditableText {
   label: string;
   description: string;
   defaultText: string;
-  category: 'hero' | 'about' | 'portfolio' | 'pricing' | 'contact' | 'footer';
+  category: 'hero' | 'about' | 'portfolio' | 'pricing' | 'contact' | 'footer' | 'chauffeuring';
   isTextArea?: boolean;
 }
 
@@ -216,14 +216,14 @@ export const INITIAL_TEXTS: EditableText[] = [
   // CHAUFFEURING PAGE
   {
     key: 'chauffeuring_heading',
-    category: 'portfolio',
+    category: 'chauffeuring',
     label: 'Chauffeuring - Heading Title',
     description: 'Main display title of the Chauffeuring & Private Tours page.',
     defaultText: 'Chauffeuring & Private Tours'
   },
   {
     key: 'chauffeuring_sub',
-    category: 'portfolio',
+    category: 'chauffeuring',
     label: 'Chauffeuring - Subtitle Narrative',
     description: 'The elegant introductory description text on the Chauffeuring page.',
     defaultText: 'Luxury transport and personalised London tours – travel comfortably, arrive on time, and explore the city with ease.',
@@ -231,28 +231,28 @@ export const INITIAL_TEXTS: EditableText[] = [
   },
   {
     key: 'chauffeuring_hourly_rate',
-    category: 'pricing',
+    category: 'chauffeuring',
     label: 'Chauffeuring - Base Hourly Rate (£)',
     description: 'Base cost per hour (used to dynamically compute prices for hourly bookings).',
     defaultText: '85.00'
   },
   {
     key: 'chauffeuring_distance_rate',
-    category: 'pricing',
+    category: 'chauffeuring',
     label: 'Chauffeuring - Base Distance Rate (£/mile)',
     description: 'Cost per mile for trip-based distance pricing calculations.',
     defaultText: '4.50'
   },
   {
     key: 'chauffeuring_base_fee',
-    category: 'pricing',
+    category: 'chauffeuring',
     label: 'Chauffeuring - Base Trip Fee (£)',
     description: 'Fixed minimal flag drop or start fee for any single trip booking.',
     defaultText: '95.00'
   },
   {
     key: 'chauffeuring_fleet_business_desc',
-    category: 'portfolio',
+    category: 'chauffeuring',
     label: 'Chauffeuring - Business Class Description',
     description: 'Detailed card description text for the Business Class sedan category.',
     defaultText: 'Travel in comfort and style with premium vehicles, professional service, and a seamless experience tailored for business needs.',
@@ -260,7 +260,7 @@ export const INITIAL_TEXTS: EditableText[] = [
   },
   {
     key: 'chauffeuring_fleet_first_desc',
-    category: 'portfolio',
+    category: 'chauffeuring',
     label: 'Chauffeuring - First Class Description',
     description: 'Detailed card description text for the First Class sedan category (VIP prestige).',
     defaultText: 'Ultimate flagship luxury experience for VIPs. Exemplary ride comfort, prestige presence, and first-class amenities.',
@@ -268,7 +268,7 @@ export const INITIAL_TEXTS: EditableText[] = [
   },
   {
     key: 'chauffeuring_fleet_van_desc',
-    category: 'portfolio',
+    category: 'chauffeuring',
     label: 'Chauffeuring - Luxury MPV Description',
     description: 'Detailed card description text for the Luxury MPV (Mercedes V-Class) category.',
     defaultText: 'Spacious high-end multi-passenger vehicle. Ideal for groups, roadshows, weddings, or travelers with extensive baggage requirements.',
@@ -279,7 +279,33 @@ export const INITIAL_TEXTS: EditableText[] = [
 const LOCAL_STORAGE_PREFIX = 'alonz_homes_override_text_';
 const LISTENERS = new Set<() => void>();
 
+let GLOBAL_TEXT_OVERRIDES: { [key: string]: string } = {};
+let isLoaded = false;
+
+export function fetchOverrides() {
+  fetch('/api/overrides')
+    .then(res => res.json())
+    .then(data => {
+      if (data && data.texts) {
+        GLOBAL_TEXT_OVERRIDES = data.texts;
+        isLoaded = true;
+        notifyListeners();
+      }
+    })
+    .catch(err => {
+      console.warn('Failed to fetch text overrides on load:', err);
+    });
+}
+
+// Trigger initial load
+if (typeof window !== 'undefined') {
+  fetchOverrides();
+}
+
 export function getText(key: string, defaultFallback: string): string {
+  if (GLOBAL_TEXT_OVERRIDES[key] !== undefined && GLOBAL_TEXT_OVERRIDES[key].trim() !== '') {
+    return GLOBAL_TEXT_OVERRIDES[key].trim();
+  }
   try {
     const override = localStorage.getItem(`${LOCAL_STORAGE_PREFIX}${key}`);
     if (override && override.trim() !== '') {
@@ -292,21 +318,40 @@ export function getText(key: string, defaultFallback: string): string {
 }
 
 export function setText(key: string, text: string): void {
+  const trimmed = text.trim();
+  GLOBAL_TEXT_OVERRIDES[key] = trimmed;
   try {
-    localStorage.setItem(`${LOCAL_STORAGE_PREFIX}${key}`, text.trim());
-    notifyListeners();
+    localStorage.setItem(`${LOCAL_STORAGE_PREFIX}${key}`, trimmed);
   } catch (e) {
     console.error('Failed to write text to localStorage', e);
   }
+  notifyListeners();
+
+  fetch('/api/overrides/text', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ key, value: trimmed })
+  }).catch(err => {
+    console.error('Failed to persist text override to server:', err);
+  });
 }
 
 export function resetText(key: string): void {
+  delete GLOBAL_TEXT_OVERRIDES[key];
   try {
     localStorage.removeItem(`${LOCAL_STORAGE_PREFIX}${key}`);
-    notifyListeners();
   } catch (e) {
     console.error('Failed to remove text from localStorage', e);
   }
+  notifyListeners();
+
+  fetch('/api/overrides/reset-text', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ key })
+  }).catch(err => {
+    console.error('Failed to reset text override on server:', err);
+  });
 }
 
 function notifyListeners() {
