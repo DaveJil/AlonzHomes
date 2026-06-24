@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Key, 
@@ -15,9 +15,8 @@ import {
   Sparkles,
   Info
 } from 'lucide-react';
-import { INITIAL_IMAGES, getImageUrl, publishImageUrl, resetImageUrl } from '../imageStore';
-import { INITIAL_TEXTS, publishText, resetText, getText } from '../textStore';
-import { loadServerContent } from '../serverContentStore';
+import { INITIAL_IMAGES, setImageUrl, resetImageUrl } from '../imageStore';
+import { INITIAL_TEXTS, setText, resetText, getText } from '../textStore';
 
 interface AdminPageProps {
   onNavigateHome: () => void;
@@ -33,7 +32,6 @@ const AdminPage: React.FC<AdminPageProps> = ({ onNavigateHome }) => {
     }
   });
   const [errorMsg, setErrorMsg] = useState('');
-  const [publishError, setPublishError] = useState('');
   
   // Section tabs
   const [currentTab, setCurrentTab] = useState<'images' | 'texts'>('images');
@@ -70,33 +68,6 @@ const AdminPage: React.FC<AdminPageProps> = ({ onNavigateHome }) => {
   const [savedKeys, setSavedKeys] = useState<{ [key: string]: boolean }>({});
   const [savedTextKeys, setSavedTextKeys] = useState<{ [key: string]: boolean }>({});
 
-  useEffect(() => {
-    let isMounted = true;
-
-    loadServerContent().then(() => {
-      if (!isMounted) {
-        return;
-      }
-
-      const latestImages: { [key: string]: string } = {};
-      INITIAL_IMAGES.forEach(img => {
-        latestImages[img.key] = getImageUrl(img.key, img.defaultUrl);
-      });
-
-      const latestTexts: { [key: string]: string } = {};
-      INITIAL_TEXTS.forEach(txt => {
-        latestTexts[txt.key] = getText(txt.key, txt.defaultText);
-      });
-
-      setImageInputs(latestImages);
-      setTextInputs(latestTexts);
-    });
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     const cleanCode = passcode.trim().toLowerCase();
@@ -107,7 +78,6 @@ const AdminPage: React.FC<AdminPageProps> = ({ onNavigateHome }) => {
       setErrorMsg('');
       try {
         sessionStorage.setItem('alonz_admin_authenticated', 'true');
-        sessionStorage.setItem('alonz_admin_passcode', cleanCode);
       } catch (err) {
         console.warn(err);
       }
@@ -122,7 +92,6 @@ const AdminPage: React.FC<AdminPageProps> = ({ onNavigateHome }) => {
     setPasscode('');
     try {
       sessionStorage.removeItem('alonz_admin_authenticated');
-      sessionStorage.removeItem('alonz_admin_passcode');
     } catch (err) {
       console.warn(err);
     }
@@ -136,24 +105,9 @@ const AdminPage: React.FC<AdminPageProps> = ({ onNavigateHome }) => {
     }));
   };
 
-  const getPublishPasscode = () => {
-    try {
-      return passcode.trim().toLowerCase() || sessionStorage.getItem('alonz_admin_passcode') || '';
-    } catch {
-      return passcode.trim().toLowerCase();
-    }
-  };
-
-  const handleApplyChange = async (key: string) => {
+  const handleApplyChange = (key: string) => {
     const url = imageInputs[key] || '';
-    const didPublish = await publishImageUrl(key, url, getPublishPasscode());
-
-    if (!didPublish) {
-      setPublishError('This change was saved in this browser, but could not be published globally. Check that admin-content.php is uploaded and writable on cPanel.');
-      return;
-    }
-
-    setPublishError('');
+    setImageUrl(key, url);
     
     // Trigger localized visual feedback
     setSavedKeys(prev => ({ ...prev, [key]: true }));
@@ -162,20 +116,12 @@ const AdminPage: React.FC<AdminPageProps> = ({ onNavigateHome }) => {
     }, 2000);
   };
 
-  const handleReset = async (key: string, originalUrl: string) => {
+  const handleReset = (key: string, originalUrl: string) => {
     resetImageUrl(key);
     setImageInputs(prev => ({
       ...prev,
       [key]: originalUrl
     }));
-    const didPublish = await publishImageUrl(key, '', getPublishPasscode());
-
-    if (!didPublish) {
-      setPublishError('This reset was saved in this browser, but could not be published globally. Check that admin-content.php is uploaded and writable on cPanel.');
-      return;
-    }
-
-    setPublishError('');
 
     // Trigger feedback
     setSavedKeys(prev => ({ ...prev, [key]: true }));
@@ -192,16 +138,9 @@ const AdminPage: React.FC<AdminPageProps> = ({ onNavigateHome }) => {
     }));
   };
 
-  const handleApplyTextChange = async (key: string) => {
+  const handleApplyTextChange = (key: string) => {
     const val = textInputs[key] || '';
-    const didPublish = await publishText(key, val, getPublishPasscode());
-
-    if (!didPublish) {
-      setPublishError('This text was saved in this browser, but could not be published globally. Check that admin-content.php is uploaded and writable on cPanel.');
-      return;
-    }
-
-    setPublishError('');
+    setText(key, val);
     
     // Trigger localized visual feedback
     setSavedTextKeys(prev => ({ ...prev, [key]: true }));
@@ -210,20 +149,12 @@ const AdminPage: React.FC<AdminPageProps> = ({ onNavigateHome }) => {
     }, 2000);
   };
 
-  const handleResetText = async (key: string, originalVal: string) => {
+  const handleResetText = (key: string, originalVal: string) => {
     resetText(key);
     setTextInputs(prev => ({
       ...prev,
       [key]: originalVal
     }));
-    const didPublish = await publishText(key, '', getPublishPasscode());
-
-    if (!didPublish) {
-      setPublishError('This reset was saved in this browser, but could not be published globally. Check that admin-content.php is uploaded and writable on cPanel.');
-      return;
-    }
-
-    setPublishError('');
 
     // Trigger feedback
     setSavedTextKeys(prev => ({ ...prev, [key]: true }));
@@ -353,12 +284,6 @@ const AdminPage: React.FC<AdminPageProps> = ({ onNavigateHome }) => {
               </button>
             </div>
           </div>
-
-          {publishError && (
-            <div className="bg-red-50 border border-red-200 text-red-700 rounded-2xl px-4 py-3 mb-8 text-xs font-semibold">
-              {publishError}
-            </div>
-          )}
 
           {/* DOCUMENTATION PANEL - BLACK BACKGROUND */}
           <div className="bg-black text-stone-200 rounded-3xl p-6 sm:p-8 mb-8 border border-stone-850 shadow-md">

@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { getServerContentValue, loadServerContent, saveServerContent, subscribeServerContent } from './serverContentStore';
 
 export interface EditableImage {
   key: string;
@@ -121,11 +120,6 @@ const LOCAL_STORAGE_PREFIX = 'alonz_homes_override_img_';
 const LISTENERS = new Set<() => void>();
 
 export function getImageUrl(key: string, defaultFallback: string): string {
-  const serverOverride = getServerContentValue('images', key);
-  if (serverOverride) {
-    return serverOverride;
-  }
-
   try {
     const override = localStorage.getItem(`${LOCAL_STORAGE_PREFIX}${key}`);
     if (override && override.trim() !== '') {
@@ -144,11 +138,6 @@ export function setImageUrl(key: string, url: string): void {
   } catch (e) {
     console.error('Failed to write to localStorage', e);
   }
-}
-
-export async function publishImageUrl(key: string, url: string, passcode: string): Promise<boolean> {
-  setImageUrl(key, url);
-  return saveServerContent('images', key, url, passcode);
 }
 
 export function resetImageUrl(key: string): void {
@@ -181,12 +170,8 @@ export function useActiveImage(key: string, defaultUrlFallback?: string): string
     };
 
     LISTENERS.add(handleUpdate);
-    const unsubscribeServerContent = subscribeServerContent(handleUpdate);
-    loadServerContent();
-
     return () => {
       LISTENERS.delete(handleUpdate);
-      unsubscribeServerContent();
     };
   }, [key, fallback]);
 

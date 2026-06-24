@@ -1,14 +1,7 @@
 import React from 'react';
 import { LogoIcon, PhoneIcon, MailIcon, WhatsAppIcon } from './IconComponents';
-import { useActiveText } from '../textStore';
 
 const Footer: React.FC = () => {
-  const officePhone = useActiveText('hero_office_phone');
-  const whatsappNum = useActiveText('hero_whatsapp_num');
-  const emailAddress = useActiveText('hero_email_address');
-  const addressVal = useActiveText('contact_address', '9 Court parade, East lane, North Wembley, London, HA0 3HU, UK');
-  const cleanOfficePhone = officePhone.replace(/[^\d+]/g, '');
-  const cleanWhatsApp = whatsappNum.replace(/[^\d+]/g, '');
   const links = {
     services: ['Management', 'Construction', 'Cleaning', 'Chauffeuring'],
     legal: ['Terms of use', 'Privacy Policy'],
@@ -25,7 +18,9 @@ const Footer: React.FC = () => {
             </a>
             <p className="mt-4 text-xs text-gray-400 leading-relaxed font-sans">
               Head Office:<br />
-              {addressVal}
+              9 Court parade, East lane,<br />
+              North Wembley, London,<br />
+              HA0 3HU, UK
             </p>
             <div className="mt-4 flex items-center gap-2 flex-wrap">
               <span className="text-xs text-gray-500 font-mono">&copy; {new Date().getFullYear()} Alonz Homes Ltd.</span>
@@ -57,15 +52,15 @@ const Footer: React.FC = () => {
           <div className="flex flex-col sm:flex-row flex-wrap gap-x-6 gap-y-3">
               <div className="flex items-center gap-2">
                   <PhoneIcon className="h-4 w-4 text-[#E2B344]" />
-                  <span>Office: <a href={`tel:${cleanOfficePhone}`} className="hover:text-white transition-colors">{officePhone}</a></span>
+                  <span>Office: <a href="tel:+442035042429" className="hover:text-white transition-colors">+44(0)2035042429</a></span>
               </div>
               <div className="flex items-center gap-2">
                   <WhatsAppIcon className="h-4 w-4 text-[#E2B344]" />
-                  <span>WhatsApp: <a href={`https://wa.me/${cleanWhatsApp.replace('+', '')}`} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">{whatsappNum}</a></span>
+                  <span>WhatsApp: <a href="https://wa.me/447471066665" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">+44(0)747 10 66665</a></span>
               </div>
               <div className="flex items-center gap-2">
                   <MailIcon className="h-4 w-4 text-[#E2B344]" />
-                  <a href={`mailto:${emailAddress}`} className="hover:text-white transition-colors">{emailAddress}</a>
+                  <a href="mailto:info@alonzhomes.com" className="hover:text-white transition-colors">info@alonzhomes.com</a>
               </div>
           </div>
         </div>
